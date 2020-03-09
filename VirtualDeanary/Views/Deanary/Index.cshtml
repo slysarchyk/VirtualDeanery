@@ -1,0 +1,37 @@
+﻿@model VirtualDeanary.Models.IndexDeanaryViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+    <div class="container">
+
+        <p>
+            <a class="btn btn-warning">Add Faculty</a>
+            <a class="btn btn-warning" asp-controller="Deanary" asp-action="AddCourse">Add Course</a>
+            <a class="btn btn-warning" asp-controller="Deanary" asp-action="AddUserToGroup">Add user to group</a>
+        </p>
+
+        <div class="row">
+            @foreach (var item in Model.Faculties)
+            {
+                <div class="col-md-3">
+                    <div class="card-deck mb-3 text-center">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header">
+                                <h4 class="my-0 font-weight-normal">@item.FacultyName</h4>
+                                <div class="card-body">
+                                    <a type="button" class="btn btn-outline-info" 
+                                            asp-action="InfoFaculty" 
+                                            asp-controller="Deanary" 
+                                            asp-route-id="@item.Id">
+                                        Info
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

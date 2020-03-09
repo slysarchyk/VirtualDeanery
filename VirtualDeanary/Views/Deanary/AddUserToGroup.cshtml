@@ -1,0 +1,61 @@
+﻿@model VirtualDeanary.Models.AddUserToGroupViewModel
+@using Microsoft.EntityFrameworkCore
+@using VirtualDeanary.Data
+@inject SqlContext _db
+@{
+    ViewData["Title"] = "AddUserToGroup";
+
+    var faculty = await _db.Faculties.ToListAsync();
+    var facSelectList = faculty.Select(x => new SelectListItem(x.FacultyName, x.Id.ToString()));
+
+    var course = await _db.Courses.ToListAsync();
+    var courseSelectList = course.Select(x => new SelectListItem(x.CourseName, x.Id.ToString()));
+}
+
+<div class="container">
+    <h1 class="display-4">Add Course</h1>
+    <form asp-action="AddUserToGroup" asp-controller="Deanary" method="post">
+        <div class="form-groupe col-md-6">
+            <label asp-for="Year" class="control-label">Year</label>
+            <input asp-for="Year" class="form-control" min="2019" max="2100" type="number" required />
+        </div>
+
+        <div class="form-groupe col-md-6">
+            <label asp-for="FacultyId" class="control-label">Faculty</label>
+            <select asp-for="FacultyId" class="form-control" type="text" asp-items="@facSelectList" required>
+                <option></option>
+            </select>
+        </div>
+
+        <div class="form-groupe col-md-6">
+            <label asp-for="Degree" class="control-label">Degree</label>
+            <select asp-for="Degree" class="form-control" type="text" required>
+                <option>Bahelor</option>
+                <option>Master</option>
+            </select>
+        </div>
+
+        <div class="form-groupe col-md-6">
+            <label asp-for="Semester" class="control-label">Semester</label>
+            <select asp-for="Semester" class="form-control" type="text" required>
+                <option>1 yaer - Winter</option>
+                <option>1 year - Summer</option>
+                <option>2 year - Winter</option>
+                <option>2 year - Summer</option>
+                <option>3 year - Winter</option>
+                <option>3 year - Summer</option>
+            </select>
+        </div>
+
+        <div class="form-groupe col-md-6">
+            <label asp-for="CourseId" class="control-label">Course</label>
+            <select asp-for="CourseId" class="form-control" type="text" asp-items="@courseSelectList" required>
+                <option></option>
+            </select>
+        </div>
+
+        <div class="form-groupe col-md-6">
+            <input value="Add" type="submit" class="btn btn-success" />
+        </div>
+    </form>
+</div>

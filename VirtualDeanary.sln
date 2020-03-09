@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualDeanary", "VirtualDeanary\VirtualDeanary.csproj", "{146A4250-F14E-4E93-B8AE-BBDA33F50E46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{146A4250-F14E-4E93-B8AE-BBDA33F50E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{146A4250-F14E-4E93-B8AE-BBDA33F50E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{146A4250-F14E-4E93-B8AE-BBDA33F50E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{146A4250-F14E-4E93-B8AE-BBDA33F50E46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7546592D-5857-43E0-99FD-81BDA9F97D82}
+	EndGlobalSection
+EndGlobal
