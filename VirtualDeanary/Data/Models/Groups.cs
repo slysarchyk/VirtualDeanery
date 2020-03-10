@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using VirtualDeanery.Data.Models;
 
 namespace VirtualDeanary.Data.Models
 {
@@ -8,8 +9,8 @@ namespace VirtualDeanary.Data.Models
         [Key]
         public int Id { get; set; }
 
-        //public int UserId { get; set; }
-        //public User User { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
         [Required]
         [Range(2019,2100)]
@@ -24,7 +25,6 @@ namespace VirtualDeanary.Data.Models
         [Required]
         public int CourseId { get; set; }
         public Course Course { get; set; }
-        [Range(2,5)]
         public int Marks { get; set; }
     }
 

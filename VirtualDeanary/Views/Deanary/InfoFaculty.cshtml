@@ -8,7 +8,8 @@
     <table class="table">
             <thead>
                 <tr>
-                    @*<th scope="col">Student</th>*@
+                    <th scope="col">Name</th>
+                    <th scope="col">Last name</th>
                     <th scope="col">Year</th>
                     <th scope="col">Faculty</th>
                     <th scope="col">Degree</th>
@@ -21,6 +22,8 @@
                 @foreach (var item in Model.Groups)
                 {
                     <tr>
+                        <td>@item.User.Name</td>
+                        <td>@item.User.Lastname</td>
                         <td>@item.Year</td>
                         <td>@item.Faculty.FacultyName</td>
                         <td>@item.Degree</td>

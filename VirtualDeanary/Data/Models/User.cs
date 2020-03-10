@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using VirtualDeanary.Data.Models;
 
 namespace VirtualDeanery.Data.Models
 {
@@ -10,10 +10,10 @@ namespace VirtualDeanery.Data.Models
         public string Lastname { get; set; }
         public int Year { get; set; }
 
-        //public virtual ICollection<Group> Groups { get; set; }
-        //public User()
-        //{
-        //    Groups = new List<Group>();
-        //}
+        public virtual ICollection<Groups> Groups { get; set; }
+        public User()
+        {
+            Groups = new List<Groups>();
+        }
     }
 }

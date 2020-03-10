@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VirtualDeanary.Data;
 
 namespace VirtualDeanary.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20200310123729_VD6")]
+    partial class VD6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,7 +208,10 @@ namespace VirtualDeanary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
@@ -218,7 +223,7 @@ namespace VirtualDeanary.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Groups");
                 });
@@ -364,7 +369,7 @@ namespace VirtualDeanary.Migrations
 
                     b.HasOne("VirtualDeanery.Data.Models.User", "User")
                         .WithMany("Groups")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

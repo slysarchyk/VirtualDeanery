@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using VirtualDeanary.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using VirtualDeanary.Data;
 using VirtualDeanary.Models;
+using VirtualDeanery.Data.Models;
 using VirtualDeanary.Data.Models;
 
 namespace VirtualDeanary.Controllers
@@ -12,13 +15,16 @@ namespace VirtualDeanary.Controllers
     {
         private readonly IMapper _autoMapper;
         private readonly SqlContext _db;
+        private readonly UserManager<User> _um;
 
         public DeanaryController(
             IMapper mapper,
-            SqlContext context)
+            SqlContext context,
+            UserManager<User> userManager)
         {
             _autoMapper = mapper;
             _db = context;
+            _um = userManager;
         }
 
         public IActionResult Index()
@@ -40,6 +46,7 @@ namespace VirtualDeanary.Controllers
                 Where(x => x.FacultyId == id).
                 Include(x => x.Faculty).
                 Include(x => x.Course).
+                Include(x => x.User).
                 AsNoTracking().ToList();
 
             InfoFacultyViewModel info = new InfoFacultyViewModel()
@@ -80,6 +87,39 @@ namespace VirtualDeanary.Controllers
                 return RedirectToAction("Index");
             }
             return View(group);
+        }
+
+
+        [HttpGet]
+        public IActionResult AddUser() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> AddUser(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User
+                {
+                    Email = model.Email,
+                    UserName = model.Email,
+                    Year = model.Year,
+                    Name = model.Name,
+                    Lastname = model.Lastname
+                };
+                var result = await _um.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(model);
         }
     }
 }
