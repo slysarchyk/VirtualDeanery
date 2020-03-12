@@ -1,0 +1,38 @@
+﻿@using VirtualDeanary.Data
+@using Microsoft.EntityFrameworkCore
+@model VirtualDeanary.Models.CreateMarkViewModel
+@inject SqlContext _db
+@{
+    ViewData["Title"] = "Create Mark List";
+
+    var course = await _db.Courses.ToListAsync();
+    var courseSelectList = course.Select(x => new SelectListItem(x.CourseName, x.Id.ToString()));
+
+    var student = await _db.Users.ToListAsync();
+    var studentSelectList = student.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
+
+}
+
+<div class="container">
+    <h1 class="display-4">Create mark list</h1>
+    <form asp-action="AddUserToGroup" asp-controller="Deanary" method="post">
+
+        <div class="form-group col-md-6">
+            <label asp-for="UserId" class="control-label">Student</label>
+            <select asp-for="UserId" class="form-control" type="text" asp-items="@studentSelectList" required>
+                <option></option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="CourseId" class="control-label">Course</label>
+            <select asp-for="CourseId" class="form-control" type="text" asp-items="@courseSelectList" required>
+                <option></option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <input type="submit" value="Add" class="btn btn-success" />
+        </div>
+    </form>
+</div>

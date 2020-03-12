@@ -1,7 +1,15 @@
-﻿@model VirtualDeanary.Models.AddCourseViewModel
-
+﻿@using VirtualDeanary.Data
+@using Microsoft.EntityFrameworkCore
+@model VirtualDeanary.Models.AddCourseViewModel
+@inject SqlContext _db
 @{
     ViewData["Title"] = "AddCourse";
+
+    var teacher = await _db.Users.ToListAsync();
+    var teacherSelectLIst = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
+
+    var semester = await _db.Semesters.ToListAsync();
+    var semSelectLIst = semester.Select(x => new SelectListItem(x.SemesterName, x.Id.ToString()));
 
 }
 
@@ -10,9 +18,23 @@
     <h1 class="display-4">Add Course</h1>
     <form asp-action="AddCourse" asp-controller="deanary" method="post">
         <div class="form-group col-md-6">
-            <label asp-for="Name" class="control-label">Name of course</label>
-            <input asp-for="Name" class="form-control" type="text" required />
+            <label asp-for="CourseName" class="control-label">Name of course</label>
+            <input asp-for="CourseName" class="form-control" type="text" required />
         </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="SemesterId" class="control-label">Semester</label>
+            <select asp-for="SemesterId" class="form-control" asp-items="semSelectLIst">
+                <option></option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for="UserId" class="control-label">Teacher</label>
+            <select asp-for="UserId" class="form-control" asp-items="@teacherSelectLIst">
+                <option></option>
+            </select>
+        </div> 
 
         <div class="form-group col-md-6">
             <input value="Add" type="submit" class="btn btn-success"/>

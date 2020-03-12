@@ -39,7 +39,7 @@ namespace VirtualDeanary
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new CourseProfiles());
-                mc.AddProfile(new GroupProfiles());
+                mc.AddProfile(new MarkProfiles());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();

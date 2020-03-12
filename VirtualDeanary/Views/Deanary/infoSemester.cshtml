@@ -1,0 +1,39 @@
+﻿@model VirtualDeanary.Models.InfoSemesterViewModel
+@{
+    ViewData["Title"] = "infoSemester";
+}
+
+<div class="container">
+    
+    <p><h4>Course list</h4></p>
+
+    <table class="table">
+        <thead> 
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col">Seemster</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Student List</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Courses)
+            {
+                <tr>
+                    <td>@item.CourseName</td>
+                    <td>@item.Semester.SemesterName</td>
+                    <td>@item.User.Name</td>
+                    <td>
+                        <a type="button" class="btn btn-outline-info"
+                           asp-action=""
+                           asp-controller=""
+                           asp-route-id="">
+                            Student list
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

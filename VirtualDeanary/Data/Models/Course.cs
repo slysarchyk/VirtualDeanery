@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VirtualDeanary.Data.Models;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using VirtualDeanery.Data.Models;
 
-namespace VirtualDeanary.Models
+namespace VirtualDeanary.Data.Models
 {
-    public class AddCourseViewModel
+    public class Course
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,11 @@ namespace VirtualDeanary.Models
 
         public string UserId { get; set; }
         public virtual User User { get; set; } //Properties for Teacher
+
+        public virtual ICollection<Mark> Marks { get; set; }
+        public Course()
+        {
+            Marks = new List<Mark>();
+        }
     }
 }
-

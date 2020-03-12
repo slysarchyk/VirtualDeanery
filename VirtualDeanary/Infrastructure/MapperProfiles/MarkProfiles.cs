@@ -4,11 +4,11 @@ using VirtualDeanary.Models;
 
 namespace VirtualDeanary.Infrastructure.MapperProfiles
 {
-    public class GroupProfiles : Profile
+    public class MarkProfiles : Profile
     {
-        public GroupProfiles()
+        public MarkProfiles()
         {
-            CreateMap<AddUserToGroupViewModel, Groups>().
+            CreateMap<CreateMarkViewModel, Mark>().
                 ForMember(x => x.Id, otp => otp.Ignore()); ;
         }
     }

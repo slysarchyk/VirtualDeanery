@@ -42,20 +42,41 @@ namespace VirtualDeanary.Controllers
             if (id == null)
                 return NotFound();
 
-            var group = _db.Groups.
-                Where(x => x.FacultyId == id).
+            var semester = _db.Semesters.
                 Include(x => x.Faculty).
-                Include(x => x.Course).
-                Include(x => x.User).
-                AsNoTracking().ToList();
+                Where(x => x.FacultyId == id).
+                OrderByDescending(x => x.Id).
+                AsNoTracking().
+                ToList();
 
-            InfoFacultyViewModel info = new InfoFacultyViewModel()
+            InfoFacultyViewModel ifvw = new InfoFacultyViewModel()
             {
-                Groups = group
+                Semesters = semester
             };
 
-            return View(info);
+            return View(ifvw);
         }
+        public IActionResult InfoSemester(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var course = _db.Courses.
+                Include(x => x.Semester).
+                Include(x => x.User).
+                Where(x => x.SemesterId == id).
+                OrderByDescending(x => x.Id).
+                AsNoTracking().
+                ToList();
+
+            InfoSemesterViewModel isvw = new InfoSemesterViewModel()
+            {
+                Courses = course
+            };
+
+            return View(isvw);
+        }
+
 
         public IActionResult AddCourse() => View();
 
@@ -73,15 +94,15 @@ namespace VirtualDeanary.Controllers
             return View(course);
         }
 
-        public IActionResult AddUserToGroup() => View();
+        public IActionResult CreateMark() => View();
 
         [HttpPost]
-        public IActionResult AddUserToGroup(AddUserToGroupViewModel group)
+        public IActionResult CreateMark(CreateMarkViewModel group)
         {
             if (ModelState.IsValid)
             {
-                var mapUser = _autoMapper.Map<AddUserToGroupViewModel, Groups>(group);
-                _db.Groups.Add(mapUser);
+                var mapUser = _autoMapper.Map<CreateMarkViewModel, Mark>(group);
+                _db.Marks.Add(mapUser);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");

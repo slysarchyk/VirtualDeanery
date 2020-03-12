@@ -3,8 +3,8 @@ using VirtualDeanary.Data.Models;
 
 namespace VirtualDeanary.Models
 {
-    public class InfoFacultyViewModel
+    public class InfoSemesterViewModel
     {
-        public IEnumerable<Semester> Semesters { get; set; }
+       public IEnumerable<Course> Courses { get; set; }
     }
 }

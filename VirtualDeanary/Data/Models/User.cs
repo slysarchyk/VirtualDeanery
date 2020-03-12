@@ -10,10 +10,12 @@ namespace VirtualDeanery.Data.Models
         public string Lastname { get; set; }
         public int Year { get; set; }
 
-        public virtual ICollection<Groups> Groups { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         public User()
         {
-            Groups = new List<Groups>();
+            Marks = new List<Mark>();
+            Courses = new List<Course>();
         }
     }
 }

@@ -8,8 +8,9 @@ namespace VirtualDeanary.Data
     public class SqlContext : IdentityDbContext<User>
     {
         public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Groups> Groups { get; set; }
+        public DbSet<Mark> Marks { get; set; }
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }
         public SqlContext() { }
