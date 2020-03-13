@@ -9,6 +9,7 @@ namespace VirtualDeanery.Data.Models
         public string Name { get; set; }
         public string Lastname { get; set; }
         public int Year { get; set; }
+        public bool Teacher { get; set; }
 
         public virtual ICollection<Mark> Marks { get; set; }
         public virtual ICollection<Course> Courses { get; set; }

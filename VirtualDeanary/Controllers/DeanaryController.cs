@@ -125,7 +125,8 @@ namespace VirtualDeanary.Controllers
                     UserName = model.Email,
                     Year = model.Year,
                     Name = model.Name,
-                    Lastname = model.Lastname
+                    Lastname = model.Lastname,
+                    Teacher = model.Teacher
                 };
                 var result = await _um.CreateAsync(user, model.Password);
                 if (result.Succeeded)

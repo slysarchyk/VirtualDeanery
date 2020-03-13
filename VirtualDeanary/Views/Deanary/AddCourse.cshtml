@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "AddCourse";
 
-    var teacher = await _db.Users.ToListAsync();
+    var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
     var teacherSelectLIst = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
 
     var semester = await _db.Semesters.ToListAsync();
@@ -15,7 +15,7 @@
 
 
 <div class="container">
-    <h1 class="display-4">Add Course</h1>
+    <h3>Add Course</h3>
     <form asp-action="AddCourse" asp-controller="deanary" method="post">
         <div class="form-group col-md-6">
             <label asp-for="CourseName" class="control-label">Name of course</label>
