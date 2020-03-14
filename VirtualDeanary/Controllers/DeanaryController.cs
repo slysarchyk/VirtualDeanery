@@ -77,37 +77,62 @@ namespace VirtualDeanary.Controllers
             return View(isvw);
         }
 
-
-        public IActionResult AddCourse() => View();
-
+        public IActionResult AddFaculty() => View();
         [HttpPost]
-        public IActionResult AddCourse(AddCourseViewModel course)
+        public IActionResult AddFaculty(AddFacultyViewModel addfaculty)
         {
             if (ModelState.IsValid)
             {
-                var courseMap = _autoMapper.Map<AddCourseViewModel, Course>(course);
+                var facultyMap = _autoMapper.Map<AddFacultyViewModel, Faculty>(addfaculty);
+                _db.Faculties.Add(facultyMap);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Deanary");
+            }
+            return View(addfaculty);
+        }
+
+        public IActionResult AddSemester() => View();
+        [HttpPost]
+        public IActionResult AddSemester(AddSemesterViewModel addSemester)
+        {
+            if (ModelState.IsValid)
+            {
+                var semesterMap = _autoMapper.Map<AddSemesterViewModel, Semester>(addSemester);
+                _db.Semesters.Add(semesterMap);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Deanary");
+            }
+            return View(addSemester);
+        }
+
+        public IActionResult AddCourse() => View();
+        [HttpPost]
+        public IActionResult AddCourse(AddCourseViewModel addcourse)
+        {
+            if (ModelState.IsValid)
+            {
+                var courseMap = _autoMapper.Map<AddCourseViewModel, Course>(addcourse);
                 _db.Courses.Add(courseMap);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index", "Deanary");
             }
-            return View(course);
+            return View(addcourse);
         }
 
         public IActionResult CreateMark() => View();
-
         [HttpPost]
-        public IActionResult CreateMark(CreateMarkViewModel group)
+        public IActionResult CreateMark(CreateMarkViewModel creategroup)
         {
             if (ModelState.IsValid)
             {
-                var mapUser = _autoMapper.Map<CreateMarkViewModel, Mark>(group);
+                var mapUser = _autoMapper.Map<CreateMarkViewModel, Mark>(creategroup);
                 _db.Marks.Add(mapUser);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            return View(group);
+            return View(creategroup);
         }
 
 

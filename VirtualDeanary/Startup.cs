@@ -40,6 +40,8 @@ namespace VirtualDeanary
             {
                 mc.AddProfile(new CourseProfiles());
                 mc.AddProfile(new MarkProfiles());
+                mc.AddProfile(new FacultyProfile());
+                mc.AddProfile(new SemesterProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();

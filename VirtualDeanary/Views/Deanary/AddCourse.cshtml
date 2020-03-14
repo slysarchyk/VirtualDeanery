@@ -6,10 +6,10 @@
     ViewData["Title"] = "AddCourse";
 
     var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
-    var teacherSelectLIst = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
+    var teacherSelectList = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
 
     var semester = await _db.Semesters.ToListAsync();
-    var semSelectLIst = semester.Select(x => new SelectListItem(x.SemesterName, x.Id.ToString()));
+    var semSelectList = semester.Select(x => new SelectListItem(x.SemesterName, x.Id.ToString()));
 
 }
 
@@ -24,14 +24,14 @@
 
         <div class="form-group col-md-6">
             <label asp-for="SemesterId" class="control-label">Semester</label>
-            <select asp-for="SemesterId" class="form-control" asp-items="semSelectLIst">
+            <select asp-for="SemesterId" class="form-control" asp-items="semSelectList">
                 <option></option>
             </select>
         </div>
 
         <div class="form-group col-md-6">
             <label asp-for="UserId" class="control-label">Teacher</label>
-            <select asp-for="UserId" class="form-control" asp-items="@teacherSelectLIst">
+            <select asp-for="UserId" class="form-control" asp-items="@teacherSelectList">
                 <option></option>
             </select>
         </div> 
