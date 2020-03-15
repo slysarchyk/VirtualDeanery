@@ -11,7 +11,8 @@
         <thead> 
             <tr>
                 <th scope="col">Course</th>
-                <th scope="col">Seemster</th>
+                <th scope="col">Study year</th>
+                <th scope="col">Semester</th>
                 <th scope="col">Teacher</th>
                 <th scope="col">Student List</th>
             </tr>
@@ -21,13 +22,14 @@
             {
                 <tr>
                     <td>@item.CourseName</td>
-                    <td>@item.Semester.SemesterName</td>
+                    <td>@item.Semester.StudyYear</td>
+                    <td>@item.Semester.Period</td>
                     <td>@item.User.Name @item.User.Lastname</td>
                     <td>
                         <a type="button" class="btn btn-outline-info"
-                           asp-action=""
-                           asp-controller=""
-                           asp-route-id="">
+                           asp-action="InfoStudentList"
+                           asp-controller="Deanary"
+                           asp-route-id="@item.Id">
                             Student list
                         </a>
                     </td>

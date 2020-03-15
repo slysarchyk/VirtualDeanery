@@ -8,19 +8,34 @@ namespace VirtualDeanary.Data.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string SemesterName { get; set; }
+        public Period Period { get; set; }
+        [Required]
         public int Year { get; set; }
+        [Required]
+        public int StudyYear { get; set; }
 
         public int FacultyId { get; set; }
         public Faculty Faculty { get; set; }
 
         [Required]
-        public string Degree { get; set; }
+        public Degree Degree { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
         public Semester()
         {
             Courses = new List<Course>();
         }
+    }
+
+    public enum Period
+    {
+        Winter = 1,
+        Summer = 2
+    }
+
+    public enum Degree
+    {
+        Bahelor = 1,
+        Master = 2
     }
 }

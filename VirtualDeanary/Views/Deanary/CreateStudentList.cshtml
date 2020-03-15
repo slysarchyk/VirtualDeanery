@@ -1,6 +1,6 @@
 ﻿@using VirtualDeanary.Data
 @using Microsoft.EntityFrameworkCore
-@model VirtualDeanary.Models.CreateMarkViewModel
+@model VirtualDeanary.Models.CreateStudentListViewModel
 @inject SqlContext _db
 @{
     ViewData["Title"] = "Create Mark List";
@@ -8,14 +8,14 @@
     var course = await _db.Courses.ToListAsync();
     var courseSelectList = course.Select(x => new SelectListItem(x.CourseName, x.Id.ToString()));
 
-    var student = await _db.Users.ToListAsync();
+    var student = await _db.Users.Where(x => x.Teacher == false).ToListAsync();
     var studentSelectList = student.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
 
 }
 
 <div class="container">
-    <h1 class="display-4">Create mark list</h1>
-    <form asp-action="AddUserToGroup" asp-controller="Deanary" method="post">
+    <h4>Create student list</h4>
+    <form asp-action="CreateStudentList" asp-controller="Deanary" method="post">
 
         <div class="form-group col-md-6">
             <label asp-for="UserId" class="control-label">Student</label>

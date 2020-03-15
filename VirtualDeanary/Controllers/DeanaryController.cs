@@ -76,6 +76,23 @@ namespace VirtualDeanary.Controllers
 
             return View(isvw);
         }
+        public IActionResult InfoStudentList(int? id)
+        {
+            var studentlist = _db.StudentLists.
+                Include(x => x.User).
+                Include(x => x.Course).
+                Where(x => x.CourseId == id).
+                OrderByDescending(x => x.Id).
+                AsNoTracking().
+                ToList();
+
+            InfoStudentListViewModel islvw = new InfoStudentListViewModel()
+            {
+                StudentLists = studentlist
+            };
+
+            return View(islvw);
+        }
 
         public IActionResult AddFaculty() => View();
         [HttpPost]
@@ -120,14 +137,14 @@ namespace VirtualDeanary.Controllers
             return View(addcourse);
         }
 
-        public IActionResult CreateMark() => View();
+        public IActionResult CreateStudentList() => View();
         [HttpPost]
-        public IActionResult CreateMark(CreateMarkViewModel creategroup)
+        public IActionResult CreateStudentList(CreateStudentListViewModel creategroup)
         {
             if (ModelState.IsValid)
             {
-                var mapUser = _autoMapper.Map<CreateMarkViewModel, Mark>(creategroup);
-                _db.Marks.Add(mapUser);
+                var mapUser = _autoMapper.Map<CreateStudentListViewModel, StudentList>(creategroup);
+                _db.StudentLists.Add(mapUser);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -136,9 +153,8 @@ namespace VirtualDeanary.Controllers
         }
 
 
-        [HttpGet]
+        //переробити
         public IActionResult AddUser() => View();
-
         [HttpPost]
         public async Task<IActionResult> AddUser(AddUserViewModel model)
         {

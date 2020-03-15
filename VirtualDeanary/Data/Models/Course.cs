@@ -17,10 +17,10 @@ namespace VirtualDeanary.Data.Models
         public string UserId { get; set; }
         public virtual User User { get; set; } //Properties for Teacher
 
-        public virtual ICollection<Mark> Marks { get; set; }
+        public virtual ICollection<StudentList> Marks { get; set; }
         public Course()
         {
-            Marks = new List<Mark>();
+            Marks = new List<StudentList>();
         }
     }
 }

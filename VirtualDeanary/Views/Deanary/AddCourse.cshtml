@@ -8,11 +8,10 @@
     var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
     var teacherSelectList = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
 
-    var semester = await _db.Semesters.ToListAsync();
-    var semSelectList = semester.Select(x => new SelectListItem(x.SemesterName, x.Id.ToString()));
+    var semester = await _db.Semesters.Include(x => x.Faculty).ToListAsync();
+    var semSelectList = semester.Select(x => new SelectListItem(x.Faculty.FacultyName, x.Id.ToString()));
 
 }
-
 
 <div class="container">
     <h3>Add Course</h3>
@@ -24,7 +23,7 @@
 
         <div class="form-group col-md-6">
             <label asp-for="SemesterId" class="control-label">Semester</label>
-            <select asp-for="SemesterId" class="form-control" asp-items="semSelectList">
+            <select asp-for="SemesterId" class="form-control" asp-items="@semSelectList">
                 <option></option>
             </select>
         </div>

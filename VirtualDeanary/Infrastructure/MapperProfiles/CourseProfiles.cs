@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using VirtualDeanary.Data.Models;
 using VirtualDeanary.Models;
-using VirtualDeanery.Data.Models;
 
 namespace VirtualDeanary.Infrastructure.MapperProfiles
 {

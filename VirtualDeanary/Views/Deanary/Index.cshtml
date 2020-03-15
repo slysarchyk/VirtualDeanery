@@ -11,7 +11,7 @@
             <a class="btn btn-warning" asp-controller="Deanary" asp-action="AddSemester">Add Semester</a>
             <a class="btn btn-warning" asp-controller="Deanary" asp-action="AddCourse">Add Course</a>
             <a class="btn btn-warning" asp-controller="Deanary" asp-action="AddUser">Add user</a>
-            <a class="btn btn-warning" asp-controller="Deanary" asp-action="CreateMark">Add cours for student</a>
+            <a class="btn btn-warning" asp-controller="Deanary" asp-action="CreateStudentList">Create student list</a>
         </p>
 
         <div class="row">
@@ -23,10 +23,10 @@
                             <div class="card-header">
                                 <h6 class="my-0 font-weight-normal">@item.FacultyName</h6>
                                 <div class="card-body">
-                                    <a type="button" class="btn btn-outline-info" 
-                                            asp-action="InfoFaculty" 
-                                            asp-controller="Deanary" 
-                                            asp-route-id="@item.Id">
+                                    <a type="button" class="btn btn-outline-info"
+                                       asp-action="InfoFaculty"
+                                       asp-controller="Deanary"
+                                       asp-route-id="@item.Id">
                                         Info
                                     </a>
                                 </div>

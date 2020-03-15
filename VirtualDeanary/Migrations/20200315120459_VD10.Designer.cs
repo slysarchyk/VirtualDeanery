@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VirtualDeanary.Data;
 
 namespace VirtualDeanary.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    partial class SqlContextModelSnapshot : ModelSnapshot
+    [Migration("20200315120459_VD10")]
+    partial class VD10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,36 +194,7 @@ namespace VirtualDeanary.Migrations
                     b.ToTable("Faculties");
                 });
 
-            modelBuilder.Entity("VirtualDeanary.Data.Models.Semester", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Degree")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FacultyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Period")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudyYear")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FacultyId");
-
-                    b.ToTable("Semesters");
-                });
-
-            modelBuilder.Entity("VirtualDeanary.Data.Models.StudentList", b =>
+            modelBuilder.Entity("VirtualDeanary.Data.Models.Mark", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,7 +204,7 @@ namespace VirtualDeanary.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Mark")
+                    b.Property<int>("Marks")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -244,7 +217,38 @@ namespace VirtualDeanary.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("StudentLists");
+                    b.ToTable("Marks");
+                });
+
+            modelBuilder.Entity("VirtualDeanary.Data.Models.Semester", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Degree")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SemesterName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudyYear")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacultyId");
+
+                    b.ToTable("Semesters");
                 });
 
             modelBuilder.Entity("VirtualDeanery.Data.Models.User", b =>
@@ -388,16 +392,7 @@ namespace VirtualDeanary.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("VirtualDeanary.Data.Models.Semester", b =>
-                {
-                    b.HasOne("VirtualDeanary.Data.Models.Faculty", "Faculty")
-                        .WithMany("Semesters")
-                        .HasForeignKey("FacultyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("VirtualDeanary.Data.Models.StudentList", b =>
+            modelBuilder.Entity("VirtualDeanary.Data.Models.Mark", b =>
                 {
                     b.HasOne("VirtualDeanary.Data.Models.Course", "Course")
                         .WithMany("Marks")
@@ -408,6 +403,15 @@ namespace VirtualDeanary.Migrations
                     b.HasOne("VirtualDeanery.Data.Models.User", "User")
                         .WithMany("Marks")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("VirtualDeanary.Data.Models.Semester", b =>
+                {
+                    b.HasOne("VirtualDeanary.Data.Models.Faculty", "Faculty")
+                        .WithMany("Semesters")
+                        .HasForeignKey("FacultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
