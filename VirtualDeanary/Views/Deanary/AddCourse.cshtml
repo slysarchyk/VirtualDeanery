@@ -3,14 +3,20 @@
 @model VirtualDeanary.Models.AddCourseViewModel
 @inject SqlContext _db
 @{
-    ViewData["Title"] = "AddCourse";
-
-    var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
-    var teacherSelectList = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
+    ViewData["Title"] = "Add Course";
 
     var semester = await _db.Semesters.Include(x => x.Faculty).ToListAsync();
-    var semSelectList = semester.Select(x => new SelectListItem(x.Faculty.FacultyName, x.Id.ToString()));
+    var semSelectList = semester.
+        Select(x => new SelectListItem(
+            x.Faculty.FacultyName +"/"+ 
+            x.StudyYear +" study year/"+ 
+            x.Period +"/"+
+            x.Year, 
+            x.Id.ToString()));
 
+    
+    var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
+    var teacherSelectList = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
 }
 
 <div class="container">

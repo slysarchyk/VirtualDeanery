@@ -16,15 +16,18 @@ namespace VirtualDeanary.Controllers
         private readonly IMapper _autoMapper;
         private readonly SqlContext _db;
         private readonly UserManager<User> _um;
+        private readonly RoleManager<IdentityRole> _rm;
 
         public DeanaryController(
             IMapper mapper,
             SqlContext context,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _autoMapper = mapper;
             _db = context;
             _um = userManager;
+            _rm = roleManager;
         }
 
         public IActionResult Index()

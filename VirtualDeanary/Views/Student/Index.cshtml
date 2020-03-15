@@ -1,0 +1,38 @@
+﻿@model VirtualDeanary.Models.IndexStudentViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+
+    <p><h4>Student list</h4></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Course</th>
+                <th scope="col">Faculty</th>
+                <th scope="col">Period</th>
+                <th scope="col">Study Year</th>
+                <th scope="col">Teacher</th>
+                <th scope="col">Mark</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.StudentLists)
+            {
+
+                <tr>
+                    <td>@item.Course.CourseName</td>
+                    <td>@item.Course.Semester.Faculty.FacultyName</td>
+                    <td>@item.Course.Semester.Period</td>
+                    <td>@item.Course.Semester.StudyYear</td>
+                    <td>@item.Course.User.Name @item.Course.User.Lastname</td>
+                    <td>@item.Mark</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

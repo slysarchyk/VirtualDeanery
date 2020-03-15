@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VirtualDeanary.Models;
@@ -17,7 +20,6 @@ namespace VirtualDeanary.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -43,7 +45,7 @@ namespace VirtualDeanary.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorect login or password");
+                    ModelState.AddModelError("", "Неправильний логін і (або) пароль");
                 }
             }
             return View(model);
@@ -53,6 +55,7 @@ namespace VirtualDeanary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            // удаляєм кукі
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }

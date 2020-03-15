@@ -21,12 +21,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Deanary" asp-action="Index">Deanary</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Teacher</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Student</a>
-                        </li>
+                        @if (ViewContext.HttpContext.User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">Student</a>
+                            </li>
+                        }
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-link text-success">@User.Identity.Name</li>

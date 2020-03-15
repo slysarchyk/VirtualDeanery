@@ -5,8 +5,14 @@
 @{
     ViewData["Title"] = "Create Mark List";
 
-    var course = await _db.Courses.ToListAsync();
-    var courseSelectList = course.Select(x => new SelectListItem(x.CourseName, x.Id.ToString()));
+    var course = await _db.Courses.Include(x => x.Semester).Include(x => x.Semester.Faculty).ToListAsync();
+    var courseSelectList = course.
+        Select(x => new SelectListItem(
+            x.CourseName +"/"+
+            x.Semester.StudyYear +" study year/"+
+            x.Semester.Period +"/"+ 
+            x.Semester.Faculty.FacultyName, 
+            x.Id.ToString()));
 
     var student = await _db.Users.Where(x => x.Teacher == false).ToListAsync();
     var studentSelectList = student.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
