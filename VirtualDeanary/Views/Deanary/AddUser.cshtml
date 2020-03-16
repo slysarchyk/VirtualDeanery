@@ -1,7 +1,6 @@
 ﻿@model VirtualDeanary.Models.AddUserViewModel
 @{
     ViewData["Title"] = "AddUser";
-
 }
 
 <div class="container">
@@ -20,7 +19,7 @@
         <div class="form-group col-md-6">
             <input type="number" asp-for="Year" class="form-control" placeholder="Year of birth" required />
         </div>
-        <div class="form-check">
+        <div class="form-check col-md-6">
             <input asp-for="Teacher" class="form-check-input" type="checkbox" value="true" id="defaultCheck1">
             <label asp-for="Teacher" class="form-check-label" for="defaultCheck1">
                 Is this a teacher?

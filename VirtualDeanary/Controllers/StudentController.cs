@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VirtualDeanary.Data;
+using VirtualDeanary.Data.Models;
 using VirtualDeanary.Models;
 using VirtualDeanery.Data.Models;
 
@@ -29,21 +27,24 @@ namespace VirtualDeanary.Controllers
             _db = context;
             _um = userManager;
         }
-        public IActionResult Index()
+        public IActionResult Index(int studyYear)
         {
             var userId = _um.GetUserId(User);
-            var courselist = _db.StudentLists.
+
+            IQueryable<StudentList> quareble = _db.StudentLists.
                 Include(x => x.Course.Semester.Faculty).
                 Include(x => x.User).
-                Include(x => x.Course.User).
-                OrderByDescending(x => x.Id).
-                AsNoTracking().
-                Where(x => x.UserId == userId).
-                ToList();
+                Include(x => x.Course.User);
+
+            if (studyYear > 0 && studyYear < 4)
+            {
+                quareble = quareble.Where(y => y.Course.Semester.StudyYear == studyYear);
+            }
 
             IndexStudentViewModel isvw = new IndexStudentViewModel()
             {
-                StudentLists = courselist
+                StudentLists = quareble.OrderByDescending(x => x.Id).Where(x => x.UserId == userId).ToList(),
+                StudyYear = studyYear
             };
 
             return View(isvw);

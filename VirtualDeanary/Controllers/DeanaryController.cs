@@ -173,6 +173,9 @@ namespace VirtualDeanary.Controllers
                     Teacher = model.Teacher
                 };
                 var result = await _um.CreateAsync(user, model.Password);
+
+
+
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");

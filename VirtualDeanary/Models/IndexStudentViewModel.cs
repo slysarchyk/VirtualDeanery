@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using VirtualDeanary.Data.Models;
 
 namespace VirtualDeanary.Models
@@ -9,5 +6,6 @@ namespace VirtualDeanary.Models
     public class IndexStudentViewModel
     {
         public IEnumerable<StudentList> StudentLists { get; set; }
+        public int StudyYear { get; internal set; }
     }
 }

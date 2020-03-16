@@ -16,7 +16,7 @@
 
     
     var teacher = await _db.Users.Where(x => x.Teacher == true).ToListAsync();
-    var teacherSelectList = teacher.Select(x => new SelectListItem(x.Lastname, x.Id.ToString()));
+    var teacherSelectList = teacher.Select(x => new SelectListItem(x.Name+" "+x.Lastname, x.Id.ToString()));
 }
 
 <div class="container">
