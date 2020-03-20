@@ -9,7 +9,7 @@ namespace VirtualDeanary.Data
     {
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Semester> Semesters { get; set; }
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
         public DbSet<StudentList> StudentLists { get; set; }
 
         public SqlContext(DbContextOptions<SqlContext> options) : base(options) { }

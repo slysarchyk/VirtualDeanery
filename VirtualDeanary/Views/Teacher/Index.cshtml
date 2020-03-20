@@ -1,0 +1,41 @@
+﻿@model VirtualDeanary.Models.IndexTeacherViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="container">
+
+        <p><h4>My course that i theach</h4></p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Course</th>
+                    <th scope="col">Faculty</th>
+                    <th scope="col">Study year</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col">Student List</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Courses)
+                {
+                    <tr>
+                        <td>@item.SubjectName</td>
+                        <td>@item.Semester.Faculty.FacultyName</td>
+                        <td>@item.Semester.StudyYear</td>
+                        <td>@item.Semester.Period</td>
+                        <td>
+                            <a type="button" class="btn btn-outline-info"
+                               asp-action="InfoStudentList"
+                               asp-controller="Deanary"
+                               asp-route-id="@item.Id">
+                                Student list
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+

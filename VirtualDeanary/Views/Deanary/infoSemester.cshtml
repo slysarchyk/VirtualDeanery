@@ -10,7 +10,7 @@
     <table class="table">
         <thead> 
             <tr>
-                <th scope="col">Course</th>
+                <th scope="col">Subject</th>
                 <th scope="col">Study year</th>
                 <th scope="col">Semester</th>
                 <th scope="col">Teacher</th>
@@ -18,10 +18,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Courses)
+            @foreach (var item in Model.Subjects)
             {
                 <tr>
-                    <td>@item.CourseName</td>
+                    <td>@item.SubjectName</td>
                     <td>@item.Semester.StudyYear</td>
                     <td>@item.Semester.Period</td>
                     <td>@item.User.Name @item.User.Lastname</td>

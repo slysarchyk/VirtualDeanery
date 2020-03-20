@@ -20,10 +20,10 @@ namespace VirtualDeanary.Data.Models
         [Required]
         public Degree Degree { get; set; }
 
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
         public Semester()
         {
-            Courses = new List<Course>();
+            Subjects = new List<Subject>();
         }
     }
 

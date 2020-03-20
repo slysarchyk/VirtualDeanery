@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VirtualDeanary.Migrations
 {
-    public partial class VD1 : Migration
+    public partial class VD_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,8 @@ namespace VirtualDeanary.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Lastname = table.Column<string>(nullable: true),
-                    Year = table.Column<int>(nullable: false)
+                    Year = table.Column<int>(nullable: false),
+                    Teacher = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,7 +56,7 @@ namespace VirtualDeanary.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false)
+                    FacultyName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,25 +170,80 @@ namespace VirtualDeanary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courses",
+                name: "Semesters",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    FacultiId = table.Column<int>(nullable: false),
-                    FacultyId = table.Column<int>(nullable: true),
-                    Semester = table.Column<string>(nullable: true)
+                    Period = table.Column<int>(nullable: false),
+                    Year = table.Column<int>(nullable: false),
+                    StudyYear = table.Column<int>(nullable: false),
+                    FacultyId = table.Column<int>(nullable: false),
+                    Degree = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.PrimaryKey("PK_Semesters", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Faculties_FacultyId",
+                        name: "FK_Semesters_Faculties_FacultyId",
                         column: x => x.FacultyId,
                         principalTable: "Faculties",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Subjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubjectName = table.Column<string>(nullable: false),
+                    SemesterId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Subjects_Semesters_SemesterId",
+                        column: x => x.SemesterId,
+                        principalTable: "Semesters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subjects_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentLists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: false),
+                    SubjectId = table.Column<int>(nullable: false),
+                    Mark = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentLists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentLists_Subjects_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subjects",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentLists_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -230,9 +286,29 @@ namespace VirtualDeanary.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_FacultyId",
-                table: "Courses",
+                name: "IX_Semesters_FacultyId",
+                table: "Semesters",
                 column: "FacultyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLists_SubjectId",
+                table: "StudentLists",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLists_UserId",
+                table: "StudentLists",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_SemesterId",
+                table: "Subjects",
+                column: "SemesterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subjects_UserId",
+                table: "Subjects",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -253,10 +329,16 @@ namespace VirtualDeanary.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "StudentLists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Subjects");
+
+            migrationBuilder.DropTable(
+                name: "Semesters");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

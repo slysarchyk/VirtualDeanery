@@ -7,48 +7,39 @@
 
     <p><h4>Student list</h4></p>
 
-    <form method="get">
-        <div class="form-group col-md-2">
-            <lable>Study Year</lable>
-            @Html.TextBox("studyYear", Model.StudyYear,
-                                   htmlAttributes: new
-                                   {
-                                       @class = "form-control",
-                                       @type = "number",
-                                       @min = "1",
-                                       @max = "3"
-                                   })
-        </div>
-        
-        <div class="form-group col-md-2">
-            <input value="Filter" type="submit" class="btn btn-success" />
-        </div>
-    </form>
-
     <table class="table">
         <thead>
             <tr>
+                <th scope="col">Study Year</th>
                 <th scope="col">Course</th>
                 <th scope="col">Faculty</th>
-                <th scope="col">Period</th>
-                <th scope="col">Study Year</th>
                 <th scope="col">Teacher</th>
                 <th scope="col">Mark</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.StudentLists)
-            {
 
+
+            @foreach (var item in Model.StudentLists.GroupBy(x => x.Subject.Semester.StudyYear))
+            {
                 <tr>
-                    <td>@item.Course.CourseName</td>
-                    <td>@item.Course.Semester.Faculty.FacultyName</td>
-                    <td>@item.Course.Semester.Period</td>
-                    <td>@item.Course.Semester.StudyYear</td>
-                    <td>@item.Course.User.Name @item.Course.User.Lastname</td>
-                    <td>@item.Mark</td>
+                    <td>Year of study @item.Key</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            }
+                @foreach (var t in item)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@t.Subject.SubjectName</td>
+                        <td>@t.Subject.Semester.Faculty.FacultyName</td>
+                        <td>@t.Subject.User.Name @t.Subject.User.Lastname</td>
+                        <td class="text-success">@t.Mark</td>
+                    </tr>
+                }
+        }
         </tbody>
     </table>
 </div>

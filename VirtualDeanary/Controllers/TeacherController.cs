@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,14 +12,13 @@ using VirtualDeanery.Data.Models;
 
 namespace VirtualDeanary.Controllers
 {
-    [Authorize(Roles = "Student")]
-    public class StudentController : Controller
+    public class TeacherController : Controller
     {
         private readonly IMapper _autoMapper;
         private readonly SqlContext _db;
         private readonly UserManager<User> _um;
 
-        public StudentController(
+        public TeacherController(
             IMapper mapper,
             SqlContext context,
             UserManager<User> userManager)
@@ -30,22 +31,19 @@ namespace VirtualDeanary.Controllers
         {
             var userId = _um.GetUserId(User);
 
-            var courslist = _db.StudentLists.
+            var courseList = _db.Subjects.
                 Include(x => x.User).
-                Include(x => x.Subject.Semester).
-                Include(x => x.Subject.Semester.Faculty).
-                Include(x => x.Subject.User).
+                Include(x => x.Semester.Faculty).
                 Where(x => x.UserId == userId).
-                OrderByDescending(x => x.Subject.Semester.Id).
                 AsNoTracking().
                 ToList();
 
-            IndexStudentViewModel isvw = new IndexStudentViewModel()
+            IndexTeacherViewModel itvw = new IndexTeacherViewModel()
             {
-                StudentLists = courslist
+                Courses = courseList
             };
 
-            return View(isvw);
+            return View(itvw);
         }
     }
 }

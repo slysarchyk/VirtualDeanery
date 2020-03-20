@@ -64,7 +64,7 @@ namespace VirtualDeanary.Controllers
             if (id == null)
                 return NotFound();
 
-            var course = _db.Courses.
+            var subject = _db.Subjects.
                 Include(x => x.Semester).
                 Include(x => x.User).
                 Where(x => x.SemesterId == id).
@@ -74,7 +74,7 @@ namespace VirtualDeanary.Controllers
 
             InfoSemesterViewModel isvw = new InfoSemesterViewModel()
             {
-                Courses = course
+                Subjects = subject
             };
 
             return View(isvw);
@@ -83,8 +83,8 @@ namespace VirtualDeanary.Controllers
         {
             var studentlist = _db.StudentLists.
                 Include(x => x.User).
-                Include(x => x.Course).
-                Where(x => x.CourseId == id).
+                Include(x => x.Subject).
+                Where(x => x.SubjectId == id).
                 OrderByDescending(x => x.Id).
                 AsNoTracking().
                 ToList();
@@ -125,19 +125,19 @@ namespace VirtualDeanary.Controllers
             return View(addSemester);
         }
 
-        public IActionResult AddCourse() => View();
+        public IActionResult AddSubject() => View();
         [HttpPost]
-        public IActionResult AddCourse(AddCourseViewModel addcourse)
+        public IActionResult AddSubject(AddSubjectViewModel addsubject)
         {
             if (ModelState.IsValid)
             {
-                var courseMap = _autoMapper.Map<AddCourseViewModel, Course>(addcourse);
-                _db.Courses.Add(courseMap);
+                var courseMap = _autoMapper.Map<AddSubjectViewModel, Subject>(addsubject);
+                _db.Subjects.Add(courseMap);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index", "Deanary");
             }
-            return View(addcourse);
+            return View(addsubject);
         }
 
         public IActionResult CreateStudentList() => View();

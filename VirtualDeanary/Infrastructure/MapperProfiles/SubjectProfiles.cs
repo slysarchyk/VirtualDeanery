@@ -4,11 +4,11 @@ using VirtualDeanary.Models;
 
 namespace VirtualDeanary.Infrastructure.MapperProfiles
 {
-    public class CourseProfiles : Profile
+    public class SubjectProfiles : Profile
     {
-        public CourseProfiles()
+        public SubjectProfiles()
         {
-            CreateMap<AddCourseViewModel, Course>()
+            CreateMap<AddSubjectViewModel, Subject>()
                 .ForMember(x => x.Id, otp => otp.Ignore());
         }
     }

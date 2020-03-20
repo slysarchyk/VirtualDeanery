@@ -5,6 +5,6 @@ namespace VirtualDeanary.Models
 {
     public class InfoSemesterViewModel
     {
-       public IEnumerable<Course> Courses { get; set; }
+       public IEnumerable<Subject> Subjects { get; set; }
     }
 }

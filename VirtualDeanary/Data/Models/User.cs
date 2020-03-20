@@ -15,11 +15,11 @@ namespace VirtualDeanery.Data.Models
         //public Faculty Faculty { get; set; }
 
         public virtual ICollection<StudentList> Marks { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
         public User()
         {
             Marks = new List<StudentList>();
-            Courses = new List<Course>();
+            Subjects = new List<Subject>();
         }
     }
 }

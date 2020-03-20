@@ -1,6 +1,6 @@
 ﻿@using VirtualDeanary.Data
 @using Microsoft.EntityFrameworkCore
-@model VirtualDeanary.Models.AddCourseViewModel
+@model VirtualDeanary.Models.AddSubjectViewModel
 @inject SqlContext _db
 @{
     ViewData["Title"] = "Add Course";
@@ -20,11 +20,11 @@
 }
 
 <div class="container">
-    <h3>Add Course</h3>
-    <form asp-action="AddCourse" asp-controller="deanary" method="post">
+    <h3>Add Subject</h3>
+    <form asp-action="AddSubject" asp-controller="deanary" method="post">
         <div class="form-group col-md-6">
-            <label asp-for="CourseName" class="control-label">Name of course</label>
-            <input asp-for="CourseName" class="form-control" type="text" required />
+            <label asp-for="SubjectName" class="control-label">Name of subject</label>
+            <input asp-for="SubjectName" class="form-control" type="text" required />
         </div>
 
         <div class="form-group col-md-6">

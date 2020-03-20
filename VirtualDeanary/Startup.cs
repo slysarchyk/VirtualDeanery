@@ -38,7 +38,7 @@ namespace VirtualDeanary
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new CourseProfiles());
+                mc.AddProfile(new SubjectProfiles());
                 mc.AddProfile(new StudentListProfiles());
                 mc.AddProfile(new FacultyProfile());
                 mc.AddProfile(new SemesterProfile());

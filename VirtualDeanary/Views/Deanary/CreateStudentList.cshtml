@@ -5,14 +5,14 @@
 @{
     ViewData["Title"] = "Create Mark List";
 
-    var course = await _db.Courses.
+    var subject = await _db.Subjects.
         Include(x => x.Semester).
         Include(x => x.Semester.Faculty).
         ToListAsync();
 
-    var courseSelectList = course.
+    var subjectSelectList = subject.
         Select(x => new SelectListItem(
-            x.CourseName +"/"+
+            x.SubjectName +"/"+
             x.Semester.StudyYear +" study year/"+
             x.Semester.Period +"/"+ 
             x.Semester.Faculty.FacultyName, 
@@ -36,8 +36,8 @@
         </div>
 
         <div class="form-group col-md-6">
-            <label asp-for="CourseId" class="control-label">Course</label>
-            <select asp-for="CourseId" class="form-control" type="text" asp-items="@courseSelectList" required>
+            <label asp-for="SubjectId" class="control-label">Subject</label>
+            <select asp-for="SubjectId" class="form-control" type="text" asp-items="@subjectSelectList" required>
                 <option></option>
             </select>
         </div>

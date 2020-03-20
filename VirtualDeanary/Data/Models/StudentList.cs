@@ -12,8 +12,8 @@ namespace VirtualDeanary.Data.Models
         public virtual User User { get; set; } //Properties for student
         
         [Required]
-        public int CourseId { get; set; }
-        public Course Course { get; set; }
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
         
         public int Mark { get; set; }
     }
